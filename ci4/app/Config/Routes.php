@@ -12,7 +12,9 @@ $routes->get('/faqs', 'Page::faqs');
 $routes->get('/artikel', 'artikel');
 $routes->get('/artikel/(:any)', 'Artikel::view/$1');
 $routes->get('/page/tos', 'Page::tos');
-$routes->group('admin', function ($routes) {
+$routes->get('/user/login', 'User::login');
+$routes->post('/user/login', 'User::login');
+$routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('artikel', 'Artikel::admin_index');
     $routes->add('artikel/add', 'Artikel::add');
     $routes->add('artikel/edit/(:any)', 'Artikel::edit/$1');

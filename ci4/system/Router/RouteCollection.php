@@ -475,7 +475,7 @@ class RouteCollection implements RouteCollectionInterface
     /**
      * Sets the class/method that should be called if routing doesn't
      * find a match. It can be either a closure or the controller/method
-     * name exactly like a route is defined: Users::index
+     * name exactly like a route is defined: user::index
      *
      * This setting is passed to the Router class and handled there.
      *
@@ -757,9 +757,9 @@ class RouteCollection implements RouteCollectionInterface
      * for grouping items into an admin area, like:
      *
      * Example:
-     *     // Creates route: admin/users
+     *     // Creates route: admin/user
      *     $route->group('admin', function() {
-     *            $route->resource('users');
+     *            $route->resource('user');
      *     });
      *
      * @param string         $name      The name to group/prefix the routes with.
@@ -1011,7 +1011,7 @@ class RouteCollection implements RouteCollectionInterface
      * Specifies a single route to match for multiple HTTP Verbs.
      *
      * Example:
-     *  $route->match( ['GET', 'POST'], 'users/(:num)', 'users/$1);
+     *  $route->match( ['GET', 'POST'], 'user/(:num)', 'user/$1);
      *
      * @param array|(Closure(mixed...): (ResponseInterface|string|void))|string $to
      */

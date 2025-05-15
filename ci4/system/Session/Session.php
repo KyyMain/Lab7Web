@@ -232,7 +232,7 @@ class Session implements SessionInterface
         $this->configure();
         $this->setSaveHandler();
 
-        // Sanitize the cookie, because apparently PHP doesn't do that for userspace handlers
+        // Sanitize the cookie, because apparently PHP doesn't do that for userpace handlers
         if (isset($_COOKIE[$this->config->cookieName])
             && (! is_string($_COOKIE[$this->config->cookieName]) || preg_match('#\A' . $this->sidRegexp . '\z#', $_COOKIE[$this->config->cookieName]) !== 1)
         ) {
@@ -578,7 +578,7 @@ class Session implements SessionInterface
     /**
      * Magic method to check for session variables.
      * Different from has() in that it will validate 'session_id' as well.
-     * Mostly used by internal PHP functions, users should stick to has()
+     * Mostly used by internal PHP functions, user should stick to has()
      *
      * @param string $key Identifier of the session property to remove.
      */

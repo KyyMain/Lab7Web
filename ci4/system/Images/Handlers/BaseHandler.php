@@ -712,7 +712,7 @@ abstract class BaseHandler implements ImageHandlerInterface
      * ratio between the full-sized image and the thumb.
      *
      * This function lets us re-proportion the width/height
-     * if users choose to maintain the aspect ratio when resizing.
+     * if user choose to maintain the aspect ratio when resizing.
      *
      * @return void
      */

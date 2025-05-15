@@ -300,7 +300,7 @@ class BaseBuilder
      *
      * @param array|string|TableName $tableName tablename or tablenames with or without aliases
      *
-     * Examples of $tableName: `mytable`, `jobs j`, `jobs j, users u`, `['jobs j','users u']`
+     * Examples of $tableName: `mytable`, `jobs j`, `jobs j, user u`, `['jobs j','user u']`
      *
      * @throws DatabaseException
      */

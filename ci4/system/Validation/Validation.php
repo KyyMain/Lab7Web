@@ -778,11 +778,11 @@ class Validation implements ValidationInterface
      *
      * and the following rule:
      *
-     *  'is_unique[users,email,id,{id}]'
+     *  'is_unique[user,email,id,{id}]'
      *
      * The value of {id} would be replaced with the actual id in the form data:
      *
-     *  'is_unique[users,email,id,13]'
+     *  'is_unique[user,email,id,13]'
      */
     protected function fillPlaceholders(array $rules, array $data): array
     {

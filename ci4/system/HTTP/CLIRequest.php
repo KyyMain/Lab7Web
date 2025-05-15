@@ -88,9 +88,9 @@ class CLIRequest extends Request
      * as if it were a URL - up until we hit our first option.
      *
      * Example:
-     *      php index.php users 21 profile -foo bar
+     *      php index.php user 21 profile -foo bar
      *
-     *      // Routes to /users/21/profile (index is removed for routing sake)
+     *      // Routes to /user/21/profile (index is removed for routing sake)
      *      // with the option foo = bar.
      */
     public function getPath(): string

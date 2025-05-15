@@ -968,7 +968,7 @@ abstract class BaseConnection implements ConnectionInterface
      * Example:
      *    $stmt = $db->prepare(function($db)
      *           {
-     *             return $db->table('users')
+     *             return $db->table('user')
      *                   ->where('id', 1)
      *                     ->get();
      *           })

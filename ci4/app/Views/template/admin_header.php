@@ -11,13 +11,11 @@
 <body>
     <div id="container">
         <header>
-            <h1>ADMIN PANEL</h1>
+            <h1><center>ADMIN PANEL</center></h1>
         </header>
         <nav>
-            <a href="<?= base_url('/home'); ?>" class="active">Home</a>
+            <a href="<?= base_url('/admin/artikel'); ?>" class="active">Dashboard</a>
             <a href="<?= base_url('/artikel'); ?>">Artikel</a>
-            <a href="<?= base_url('/about'); ?>">About</a>
-            <a href="<?= base_url('/contact'); ?>">Kontak</a>
         </nav>
 
         <section id="wrapper">

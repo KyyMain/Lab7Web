@@ -20,7 +20,7 @@ use SplFileInfo;
 
 /**
  * This class is used by Composer during installs and updates
- * to move files to locations within the system folder so that end-users
+ * to move files to locations within the system folder so that end-user
  * do not need to use Composer to install a package, but can simply
  * download.
  *

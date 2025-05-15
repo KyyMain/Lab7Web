@@ -67,7 +67,7 @@ class SeederGenerator extends BaseCommand
      */
     protected $options = [
         '--namespace' => 'Set root namespace. Default: "APP_NAMESPACE".',
-        '--suffix'    => 'Append the component title to the class name (e.g. User => UserSeeder).',
+        '--suffix' => 'Append the component title to the class name (e.g. User => usereeder).',
         '--force'     => 'Force overwrite existing file.',
     ];
 

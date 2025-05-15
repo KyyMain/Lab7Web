@@ -143,7 +143,7 @@ class Throttler implements ThrottlerInterface
 
         // How many seconds till a new token is available.
         // We must have a minimum wait of 1 second for a new token.
-        // Primarily stored to allow devs to report back to users.
+        // Primarily stored to allow devs to report back to user.
         $newTokenAvailable = (int) round((1 - $tokens) * $refresh);
         $this->tokenTime   = max(1, $newTokenAvailable);
 

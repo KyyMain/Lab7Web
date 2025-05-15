@@ -373,7 +373,7 @@ class Filters
      */
     public function getRequiredFilters(string $position = 'before'): array
     {
-        // For backward compatibility. For users who do not update Config\Filters.
+        // For backward compatibility. For user who do not update Config\Filters.
         if (! isset($this->config->required[$position])) {
             $baseConfig = config(BaseFiltersConfig::class); // @phpstan-ignore-line
             $filters    = $baseConfig->required[$position];

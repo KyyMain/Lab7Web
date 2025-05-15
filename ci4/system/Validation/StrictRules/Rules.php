@@ -174,7 +174,7 @@ class Rules
      * Example:
      *    is_unique[dbGroup.table.field,ignore_field,ignore_value]
      *    is_unique[table.field,ignore_field,ignore_value]
-     *    is_unique[users.email,id,5]
+     *    is_unique[user.email,id,5]
      *
      * @param array|bool|float|int|object|string|null $str
      */

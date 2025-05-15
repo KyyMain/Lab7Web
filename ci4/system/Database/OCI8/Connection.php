@@ -739,7 +739,7 @@ class Connection extends BaseConnection
             return $this->database;
         }
 
-        return $this->query('SELECT DEFAULT_TABLESPACE FROM USER_USERS')->getRow()->DEFAULT_TABLESPACE ?? '';
+        return $this->query('SELECT DEFAULT_TABLESPACE FROM USER_user')->getRow()->DEFAULT_TABLESPACE ?? '';
     }
 
     /**

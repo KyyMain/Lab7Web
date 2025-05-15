@@ -69,7 +69,7 @@ class PageNotFoundException extends RuntimeException implements HTTPExceptionInt
      *
      * Use a non-shared Language instance in the Services.
      * If a shared instance is created, the Language will
-     * have the current locale, so even if users call
+     * have the current locale, so even if user call
      * `$this->request->setLocale()` in the controller afterwards,
      * the Language locale will not be changed.
      */
