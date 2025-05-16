@@ -60,25 +60,47 @@ class Artikel extends BaseController
     // Method for adding an article
     public function add()
     {
-        // Validation...
+        // Validasi data
         if (
-            $this->request->getMethod() == 'post' && $this->validate([
+            $this->request->getMethod() == 'post' &&
+            $this->validate([
                 'judul' => 'required',
-                'id_kategori' => 'required|integer' // Ensure id_kategori is required and an integer
+                'id_kategori' => 'required|integer', // Pastikan id_kategori wajib dan berupa integer
+                'gambar' => 'uploaded[gambar]|max_size[gambar,2048]|is_image[gambar]' // Validasi file gambar
             ])
         ) {
+            // Mengambil file gambar dari request
+            $file = $this->request->getFile('gambar');
+            if ($file->isValid() && !$file->hasMoved()) {
+                // Mengatur nama file gambar
+                $gambarName = $file->getRandomName();
+                // Mengupload gambar ke direktori public/gambar
+                $file->move(ROOTPATH . 'public/gambar', $gambarName);
+            } else {
+                // Jika ada kesalahan saat upload gambar, kembalikan ke form dengan pesan error
+                return redirect()->back()->with('errors', 'Gagal mengupload gambar');
+            }
+
+            // Membuat objek model ArtikelModel
             $model = new ArtikelModel();
+            // Menyimpan data artikel ke database
             $model->insert([
                 'judul' => $this->request->getPost('judul'),
                 'isi' => $this->request->getPost('isi'),
                 'slug' => url_title($this->request->getPost('judul')),
-                'id_kategori' => $this->request->getPost('id_kategori')
+                'id_kategori' => $this->request->getPost('id_kategori'),
+                'gambar' => $gambarName // Simpan nama file gambar yang telah diupload
             ]);
+
+            // Redirect ke halaman daftar artikel
             return redirect()->to('/admin/artikel');
         } else {
+            // Jika validasi gagal atau bukan request POST
+            // Mengambil data kategori untuk form
             $kategoriModel = new KategoriModel();
-            $data['kategori'] = $kategoriModel->findAll(); // Fetch categories for the form
+            $data['kategori'] = $kategoriModel->findAll();
             $data['title'] = "Tambah Artikel";
+            // Menampilkan form tambah artikel
             return view('artikel/form_add', $data);
         }
     }
