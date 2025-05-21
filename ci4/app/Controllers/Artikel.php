@@ -30,6 +30,7 @@ class Artikel extends BaseController
             'title' => $title,
             'q' => $q,
             'kategori_id' => $kategori_id,
+            
         ];
 
         // Building the query
@@ -47,8 +48,8 @@ class Artikel extends BaseController
             $builder->where('artikel.id_kategori', $kategori_id);
         }
 
-        // Apply pagination
-        $data['artikel'] = $builder->paginate(10);
+        // Apply pagination with a specific group name 'artikel'
+        $data['artikel'] = $builder->paginate(3);
         $data['pager'] = $model->pager;
 
         // Fetch all categories for the filter dropdown
@@ -126,6 +127,8 @@ class Artikel extends BaseController
     {
         $model = new ArtikelModel();
         $model->delete($id);
+        $db = \Config\Database::connect();
+        $db->query("ALTER TABLE artikel AUTO_INCREMENT = 1");
 
         return redirect()->to('/admin/artikel');
     }

@@ -353,19 +353,22 @@ footer p {
 /* Admin Styles yang lebih modern */
 .admin-content {
     padding: 30px;
-    background: white;
+    background: #FFFFFF;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+    margin-top: 20px;
 }
 
 .admin-content h2 {
     color: var(--dark-text);
     margin-bottom: 25px;
     padding-bottom: 15px;
-    border-bottom: 2px solid var(--primary-color);
-    font-weight: 700;
+    border-bottom: 3px solid var(--primary-color);
+    font-weight: bold;
+    font-size: 24px;
 }
 
+/* Table Styling */
 .table {
     width: 100%;
     border-collapse: separate;
@@ -381,44 +384,42 @@ footer p {
 .table td {
     padding: 16px 20px;
     text-align: left;
-}
-
-.table tr {
-    transition: var(--transition);
+    font-size: 14px;
 }
 
 .table th {
     background-color: var(--primary-color);
     color: white;
-    font-weight: 600;
     text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.75px;
 }
 
 .table tbody tr {
-    border-bottom: 1px solid #f3f4f6;
+    transition: var(--transition);
+    background-color: #F9FAFB;
+}
+
+.table tbody tr:hover {
+    background-color: #E8F5E9;
+    transform: scale(1.01);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .table tbody tr:last-child {
     border-bottom: none;
 }
 
-.table tbody tr:hover {
-    background-color: #f9fafb;
-}
-
+/* Buttons */
 .btn {
-    display: inline-block;
     padding: 10px 20px;
-    margin: 3px;
+    margin: 5px;
     border-radius: var(--border-radius);
-    text-decoration: none;
     font-weight: 600;
-    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 14px;
     transition: var(--transition);
     border: none;
-    text-align: center;
+    cursor: pointer;
 }
 
 .btn-primary {
@@ -428,8 +429,8 @@ footer p {
 
 .btn-primary:hover {
     background-color: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(76, 175, 80, 0.4);
 }
 
 .btn-danger {
@@ -439,8 +440,8 @@ footer p {
 
 .btn-danger:hover {
     background-color: var(--danger-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(231, 76, 60, 0.4);
 }
 
 .btn-success {
@@ -449,16 +450,104 @@ footer p {
 }
 
 .btn-success:hover {
-    background-color: #0ea372;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    background-color: #10a368;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(22, 199, 154, 0.4);
 }
 
+/* Enhanced Table Responsiveness */
 .table-responsive {
+    max-width: 100%;
     overflow-x: auto;
-    margin-top: 25px;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+    margin-top: 25px;
+}
+
+/* Pagination */
+.pagination-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.pagination a, .pagination span {
+    color: var(--dark-text);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.pagination a:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Filter and Search Area */
+.form-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #BDC3C7;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+}
+
+.form-group .btn-primary {
+    font-size: 14px;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons .btn {
+    padding: 8px 12px;
+}
+
+/* Add New Artikel Button */
+.action-area .add-btn {
+    display: inline-block;
+    padding: 14px 28px;
+    background-color: var(--primary-color);
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.action-area .add-btn:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 6px 14px rgba(76, 175, 80, 0.4);
+    transform: translateY(-4px);
 }
 
 /* Login Form Styles */
