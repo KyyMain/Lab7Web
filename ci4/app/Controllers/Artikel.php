@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\ArtikelModel;
@@ -57,88 +58,78 @@ class Artikel extends BaseController
         return view('artikel/admin_index', $data);
     }
 
-    // Method for adding an article
     public function add()
     {
-        // Validasi data
+        // Validation...
+        $validation = \Config\Services::validation();
+        $validation->setRules(['judul' => 'required']);
+        $isDataValid = $validation->withRequest($this->request)->run();
         if (
-            $this->request->getMethod() == 'post' &&
-            $this->validate([
+            $isDataValid &&
+            $this->request->getMethod() == 'POST' && $this->validate([
                 'judul' => 'required',
-                'id_kategori' => 'required|integer', // Pastikan id_kategori wajib dan berupa integer
-                'gambar' => 'uploaded[gambar]|max_size[gambar,2048]|is_image[gambar]' // Validasi file gambar
+                        'id_kategori' => 'required|integer' // Ensure id_kategori is required and an integer
             ])
         ) {
-            // Mengambil file gambar dari request
             $file = $this->request->getFile('gambar');
-            if ($file->isValid() && !$file->hasMoved()) {
-                // Mengatur nama file gambar
-                $gambarName = $file->getRandomName();
-                // Mengupload gambar ke direktori public/gambar
-                $file->move(ROOTPATH . 'public/gambar', $gambarName);
-            } else {
-                // Jika ada kesalahan saat upload gambar, kembalikan ke form dengan pesan error
-                return redirect()->back()->with('errors', 'Gagal mengupload gambar');
-            }
-
-            // Membuat objek model ArtikelModel
+            $file->move(ROOTPATH . 'public/gambar');
             $model = new ArtikelModel();
-            // Menyimpan data artikel ke database
             $model->insert([
                 'judul' => $this->request->getPost('judul'),
                 'isi' => $this->request->getPost('isi'),
                 'slug' => url_title($this->request->getPost('judul')),
                 'id_kategori' => $this->request->getPost('id_kategori'),
-                'gambar' => $gambarName // Simpan nama file gambar yang telah diupload
+                'gambar' => $file->getName(),
             ]);
 
-            // Redirect ke halaman daftar artikel
             return redirect()->to('/admin/artikel');
         } else {
-            // Jika validasi gagal atau bukan request POST
-            // Mengambil data kategori untuk form
             $kategoriModel = new KategoriModel();
-            $data['kategori'] = $kategoriModel->findAll();
+            $data['kategori'] = $kategoriModel->findAll(); // Fetch categories for the form
             $data['title'] = "Tambah Artikel";
-            // Menampilkan form tambah artikel
+
             return view('artikel/form_add', $data);
         }
     }
 
-    // Method for editing an article
     public function edit($id)
     {
         $model = new ArtikelModel();
+
         if (
-            $this->request->getMethod() == 'post' && $this->validate([
+            $this->request->getMethod() == 'POST' && $this->validate([
                 'judul' => 'required',
                 'id_kategori' => 'required|integer'
             ])
         ) {
+            $file = $this->request->getFile('gambar');
+            $file->move(ROOTPATH . 'public/gambar');
             $model->update($id, [
                 'judul' => $this->request->getPost('judul'),
                 'isi' => $this->request->getPost('isi'),
-                'id_kategori' => $this->request->getPost('id_kategori')
+                'id_kategori' => $this->request->getPost('id_kategori'),
+                'gambar' => $file->getName(),
             ]);
+
             return redirect()->to('/admin/artikel');
         } else {
             $data['artikel'] = $model->find($id);
             $kategoriModel = new KategoriModel();
             $data['kategori'] = $kategoriModel->findAll(); // Fetch categories for the form
             $data['title'] = "Edit Artikel";
+
             return view('artikel/form_edit', $data);
         }
     }
 
-    // Method for deleting an article
     public function delete($id)
     {
         $model = new ArtikelModel();
         $model->delete($id);
+
         return redirect()->to('/admin/artikel');
     }
 
-    // Method for viewing an article
     public function view($slug)
     {
         $model = new ArtikelModel();
@@ -149,6 +140,7 @@ class Artikel extends BaseController
         }
 
         $data['title'] = $data['artikel']['judul'];
+
         return view('artikel/detail', $data);
     }
 }

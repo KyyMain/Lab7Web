@@ -5,7 +5,8 @@
 <article class="entry">
             <h2><a href="<?= base_url('/artikel/' . $row['slug']); ?>"><?= $row['judul']; ?></a></h2>
             <p>Kategori: <?= $row['nama_kategori']; ?></p>
-            <img src="<?= base_url('/gambar/' . $row['gambar']); ?>" alt="<?= $row['judul']; ?>">
+            <img src="<?= base_url('/gambar/' . $row['gambar']); ?>" alt="<?= $row['judul']; ?>"
+                style="max-width: 100%; height: auto;">
             <p><?= substr($row['isi'], 0, 200); ?>...</p>
             </article>
             <hr class="divider" />
