@@ -13,6 +13,9 @@ $routes->get('/artikel', 'artikel');
 $routes->get('/artikel/(:any)', 'Artikel::view/$1');
 $routes->get('/page/tos', 'Page::tos');
 $routes->get('/user/login', 'User::login');
+$routes->get('ajax', 'AjaxController::index');
+$routes->get('ajax/getData', 'AjaxController::getData');
+$routes->delete('artikel/delete/(:num)', 'AjaxController::delete/$1');
 $routes->post('/user/login', 'User::login');
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('artikel', 'Artikel::admin_index');

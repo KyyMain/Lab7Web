@@ -19,45 +19,76 @@ class Artikel extends BaseController
     {
         $title = 'Daftar Artikel (Admin)';
         $model = new ArtikelModel();
+        $kategoriModel = new KategoriModel();
 
-        // Get search keyword
         $q = $this->request->getVar('q') ?? '';
-
-        // Get category filter
         $kategori_id = $this->request->getVar('kategori_id') ?? '';
+        $page = $this->request->getVar('page') ?? 1;
+        $sort = $this->request->getVar('sort') ?? 'id';
+        $order = $this->request->getVar('order') ?? 'desc';
 
-        $data = [
-            'title' => $title,
-            'q' => $q,
-            'kategori_id' => $kategori_id,
-            
-        ];
-
-        // Building the query
         $builder = $model->table('artikel')
             ->select('artikel.*, kategori.nama_kategori')
             ->join('kategori', 'kategori.id_kategori = artikel.id_kategori');
 
-        // Apply search filter if keyword is provided
         if ($q != '') {
             $builder->like('artikel.judul', $q);
         }
 
-        // Apply category filter if category_id is provided
         if ($kategori_id != '') {
             $builder->where('artikel.id_kategori', $kategori_id);
         }
 
-        // Apply pagination with a specific group name 'artikel'
-        $data['artikel'] = $builder->paginate(3);
-        $data['pager'] = $model->pager;
+        $builder->orderBy($sort, $order);
 
-        // Fetch all categories for the filter dropdown
-        $kategoriModel = new KategoriModel();
-        $data['kategori'] = $kategoriModel->findAll();
+        $artikel = $builder->paginate(3, 'default', $page);
+        $pager = $model->pager;
 
-        return view('artikel/admin_index', $data);
+        if ($this->request->isAJAX()) {
+            // Pagination links parsing
+            $links = $pager->only(['q', 'kategori_id'])->links();
+            $dom = new \DOMDocument();
+            libxml_use_internal_errors(true);
+            $dom->loadHTML($links);
+            $xpath = new \DOMXPath($dom);
+            $linkNodes = $xpath->query("//a | //span");
+
+            $parsedLinks = [];
+            foreach ($linkNodes as $node) {
+                $tag = $node->nodeName;
+                $title = $node->nodeValue;
+                $active = $node->parentNode->getAttribute('class') === 'active';
+                $url = $tag === 'a' ? $node->getAttribute('href') : null;
+
+                $parsedLinks[] = [
+                    'title' => $title,
+                    'url' => $url,
+                    'active' => $active
+                ];
+            }
+
+            return $this->response->setJSON([
+                'artikel' => $artikel,
+                'pager' => ['links' => $parsedLinks],
+                'q' => $q,
+                'kategori_id' => $kategori_id,
+                'sort' => $sort,
+                'order' => $order
+            ]);
+        } else {
+            return view('artikel/admin_index', [
+                'title' => $title,
+                'q' => $q,
+                'kategori_id' => $kategori_id,
+                'artikel' => $artikel,
+                'pager' => $pager,
+                'kategori' => $kategoriModel->findAll(),
+                'sort' => $sort,
+                'order' => $order
+            ]);
+        }
     }
+
 
     public function add()
     {

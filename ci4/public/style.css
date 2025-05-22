@@ -464,32 +464,25 @@ footer p {
     margin-top: 25px;
 }
 
-/* Pagination */
 .pagination-container {
-    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    gap: 3px;
+    padding: 3px;
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius);
 }
 
 .pagination li {
-    display: inline-block;
-    margin: 0 5px;
+    list-style: none;
 }
 
-.pagination a, .pagination span {
-    color: var(--dark-text);
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: var(--border-radius);
-    transition: var(--transition);
-}
-
-.pagination a:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: translateY(-2px);
-}
 
 /* Filter and Search Area */
 .form-inline {
